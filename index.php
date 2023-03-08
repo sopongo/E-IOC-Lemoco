@@ -177,8 +177,6 @@ switch($module){
         
   </nav>
   <!-- /.navbar -->
-
-
   
   <?PHP include('howto.inc.php'); ?>
 

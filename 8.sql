@@ -1,0 +1,1 @@
+SELECT COUNT(id) AS total_row FROM mqtteioc.data_eioc;

@@ -1,0 +1,1 @@
+SELECT _groupName FROM mqtteioc.data_eioc GROUP BY _groupName ORDER BY _groupName ASC;

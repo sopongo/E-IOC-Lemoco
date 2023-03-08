@@ -27,21 +27,10 @@ MIS	HV02	itpcs	Pcs@1234
 Ubuntu 2004 with mosquito / pass for mosq (admin:admin1234. , eioc:abcd@cc)			MySql HostName	user  =  eioc	pass  =l;ylfu8iy[
   */            
 
-  //set_include_path(get_include_path() . PATH_SEPARATOR . 'phpseclib');
-
-  include('phpseclib/Net/SSH2.php');
-
-  $ssh = new Net_SSH2('172.16.61.38');
-  if (!$ssh->login('itpcs', 'Pcs@1234')) {
-      exit('Login Failed');
-  }
-  
-  echo $ssh->exec('pwd');
-  echo $ssh->exec('ls -la');
 
         ?>
 
-        <h1 class="w-100 text-center d-block"><br/><br/><br/><br/><br/>Under Construction<br/><br/><br/><br/><br/></h1>
+        <h1 class="w-100 text-center d-block"><br/><br/>Under Construction<br/><br/></h1>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -56,34 +45,34 @@ Ubuntu 2004 with mosquito / pass for mosq (admin:admin1234. , eioc:abcd@cc)			My
           ['2015',  660,       1120],
           ['2016',  1030,      540]*/
           ['Date', 'Power Factory'],
-          ['01/02',	0],
-          ['02/02',	0],
-          ['03/02',	0.415	],
-          ['04/02', 0.420	],
-          ['05/02', 0.421	],
-          ['06/02', 0.417	],
-          ['07/02', 0.418	],
-          ['08/02', 0.448	],
-          ['09/02', 0.422	],
-          ['10/02', 0.420	],
-          ['11/02', 0.422	],
-          ['12/02', 0.419	],
-          ['13/02', 0.418	],
-          ['14/02', 0.417	],
-          ['15/02', 0.416	],
-          ['16/02', 0.419	],
-          ['17/02', 0.418	],
-          ['18/02', 0.418	],
-          ['19/02', 0.412	],
-          ['20/02', 0.420	],
-          ['21/02', 0.417	],
-          ['22/02', 0.414	],
-          ['23/02', 0.421	],
-          ['24/02', 0.416	],
-          ['25/02', 0.422	],
-          ['26/02', 0.410	],
-          ['27/02', 0.411	],
-          ['28/02', 0.419	]
+          ['01/02/2023 00:00:00',	0.410],
+          ['02/02/2023 00:00:00',	0],
+          ['03/02/2023 00:00:00',	0.415	],
+          ['04/02/2023 00:00:00', 0.420	],
+          ['05/02/2023 00:00:00', 0.421	],
+          ['06/02/2023 00:00:00', 0.417	],
+          ['07/02/2023 00:00:00', 0.418	],
+          ['08/02/2023 00:00:00', 0.448	],
+          ['09/02/2023 00:00:00', 0.422	],
+          ['10/02/2023 00:00:00', 0.420	],
+          ['11/02/2023 00:00:00', 0.422	],
+          ['12/02/2023 00:00:00', 0.419	],
+          ['13/02/2023 00:00:00', 0.418	],
+          ['14/02/2023 00:00:00', 0.417	],
+          ['15/02/2023 00:00:00', 0.416	],
+          ['16/02/2023 00:00:00', 0.419	],
+          ['17/02/2023 00:00:00', 0.418	],
+          ['18/02/2023 00:00:00', 0.418	],
+          ['19/02/2023 00:00:00', 0.412	],
+          ['20/02/2023 00:00:00', 0.420	],
+          ['21/02/2023 00:00:00', 0.417	],
+          ['22/02/2023 00:00:00', 0.414	],
+          ['23/02/2023 00:00:00', 0.421	],
+          ['24/02/2023 00:00:00', 0.416	],
+          ['25/02/2023 00:00:00', 0.422	],
+          ['26/02/2023 00:00:00', 0.410	],
+          ['27/02/2023 00:00:00', 0.411	],
+          ['28/02/2023 00:00:00', 0.419	]
         ]);    
 
         var options = {
@@ -98,13 +87,18 @@ Ubuntu 2004 with mosquito / pass for mosq (admin:admin1234. , eioc:abcd@cc)			My
           fontSize:'11',
           annotations: {alwaysOutside: true},
           curveType: 'function',
-          pointSize: 5,
+          pointSize: 7,
           responsive: true,
           tooltip:{trigger: 'focus' }, //focus  selection
-          width:800,
-          height:300,
+          width:1200,
+          height:500,
           /*tooltip: {isHtml: true},*/
           /*backgroundColor:'#000',*/
+          animation: {
+        "startup": true,
+        duration: 500,
+        easing: 'linear'
+      },
         };
 
         var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
