@@ -4,8 +4,8 @@ class Database
 {
     ####localhost 
     //private $dbServer = 'localhost'; private $dbUser = 'root'; private $dbPassword = ''; private $dbName = 'db_e-service';
-    //private $dbServer = 'mqtt.jwdcoldchain.com'; private $dbUser = 'eioc'; private $dbPassword = 'l;ylfu8iy['; private $dbName = 'db_eservice_new'; //ON SERVER;
-    private $dbServer = '172.16.61.38'; private $port='33906'; private $dbUser = 'eioc'; private $dbPassword = 'l;ylfu8iy['; private $dbName = 'mqtteioc'; //ON SERVER;
+    private $dbServer = 'mqtt.jwdcoldchain.com'; private $port='33906'; private $dbUser = 'eioc'; private $dbPassword = 'l;ylfu8iy['; private $dbName = 'mqtteioc'; //ON SERVER;
+    //private $dbServer = '172.16.61.38'; private $port='33906'; private $dbUser = 'eioc'; private $dbPassword = 'l;ylfu8iy['; private $dbName = 'mqtteioc'; //ON SERVER;
     
 
 /*

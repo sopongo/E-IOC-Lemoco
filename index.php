@@ -209,7 +209,8 @@ switch($module){
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item"><a href="./" class="nav-link <?PHP echo $active_dashbord;?>"><i class="nav-icon fa fa-solid fa-chalkboard"></i> <p>แดชบอร์ด</p></a></li>
-        <li class="nav-item"><a href="?module=pf-chart" class="nav-link <?PHP echo $active_createrequest;?>"><i class="nav-icon fas fa-chart-line"></i> <p>Power Factory Chart</p></a></li>
+        <li class="nav-item"><a href="?module=pf-chart" class="nav-link <?PHP echo $active_createrequest;?>"><i class="nav-icon fas fa-chart-line"></i> <p>Power Factor Chart</p></a></li>
+        <li class="nav-item"><a href="?module=pf-chart" class="nav-link <?PHP echo $active_createrequest;?>"><i class="nav-icon fas fa-chart-line"></i> <p>รายงานต่างๆ</p></a></li>
         <li class="nav-item <?PHP echo $active_treeview_1; ?>"><!--ถ้าจะให้เปิดใส่คลาส menu-open-->
             <a href="#" class="nav-link"><i class="nav-icon fas fa-chart-bar"></i><p>กราฟ<i class="right fas fa-angle-left"></i></p></a>
             <ul class="nav nav-treeview">

@@ -23,7 +23,7 @@ if (!empty($action)) { ##ถ้า $action มีการส่งค่าม�
             ##"slt_failure_code=3&txt_failure_code=xxxx&txt_caused_by=xxxxxxx&slt_repair_code=6&txt_repair_code=xxxx&txt_solution=xxxxxx
             parse_str($_POST['data'], $output); //$output['period']
             //Array ( [site_location] => 3FLC03Lighting [r3] => on [reservation] => 16/03/2023 - 16/03/2023 )
-            print_r($output); //exit();
+            //print_r($output); //exit();
 
             $exp_reservation = explode(" - ", $output['reservation']);
 
@@ -36,15 +36,16 @@ if (!empty($action)) { ##ถ้า $action มีการส่งค่าม�
             $end_mm = substr($exp_reservation[1],3,2); //MM
             $end_dd = substr($exp_reservation[1],0,2); //DD            
 
-            echo $dateStart = $start_yyyy.'-'.$start_mm.'-'.$start_dd;
-            echo "-------------";
-            echo $dateEnd = $end_yyyy.'-'.$end_mm.'-'.$end_dd;
+            $dateStart = $start_yyyy.'-'.$start_mm.'-'.$start_dd;
+            //echo "-------------";
+            $dateEnd = $end_yyyy.'-'.$end_mm.'-'.$end_dd;
 
             $earlier = new DateTime($dateStart);
             $later = new DateTime($dateEnd);
-            echo "<hr />";
-            echo "จำนวนวันที่เรียกดู: ".$abs_diff = ($later->diff($earlier)->format("%a")+1);
-            echo "<hr />";
+            //echo "<hr />";
+            //echo "จำนวนวันที่เรียกดู: ";
+            $abs_diff = ($later->diff($earlier)->format("%a")+1);
+            //echo "<hr />";
 
             function createRange($start, $end, $format = 'Y-m-d') {
                 $start  = new DateTime($start);
@@ -62,7 +63,7 @@ if (!empty($action)) { ##ถ้า $action มีการส่งค่าม�
 
             $arrDateDay = createRange($dateStart, $dateEnd);
 
-            print_r($arrDateDay);    
+            //print_r($arrDateDay);    
 
         }
 
@@ -72,7 +73,7 @@ if (!empty($action)) { ##ถ้า $action มีการส่งค่าม�
         //echo count($rowData);
         $arrPowerFactor = "";
         $arrRowDay = array();
-        echo "<hr />จำนวนวันที่มีในฐานข้อมูล: ".count($rowData)."<hr />";
+        //echo "<hr />จำนวนวันที่มีในฐานข้อมูล: ".count($rowData)."<hr />";
             if (count($rowData)>0){
                 foreach($rowData as $key => $value){
                     $yyyy = substr($rowData[$key]['terminalTimes'],0,4); //YYYY
@@ -88,24 +89,27 @@ if (!empty($action)) { ##ถ้า $action มีการส่งค่าม�
                 }
             }
 
-            echo '<pre>';
-            //print_r($arrDateRow);
-            echo '</pre>';
+            //echo '<pre>'; print_r($arrDateRow); echo '</pre>';
 
             foreach($arrDateDay as $key => $value){
                 //echo $value."<br />";
-                echo $value;
-                if(array_search($value, array_column($arrDateRow, 'chkdate'))!=NULL){
-                    echo "มี".$arrDateRow[$key]['datetime']."<br />";
-                    //$arrPowerFactor.="['".$value."', '".$arrDateRow[$key]['value']."' ],\r\n";
+                //echo array_search($value, array_column($arrDateRow, 'chkdate'))=='' ? '<span class="text-red">ไม่มี======'.$value.'</span>' : 'มี========='.$value;
+                //
+                $no_index = array_search($value, array_column($arrDateRow, 'chkdate'));
+                if($no_index==''){
+                    //echo "ไม่มี --------------->0.000<br />";
+                    $yyyy = substr($value,0,4); //YYYY
+                    $mm = substr($value,5,2); //MM
+                    $dd = substr($value,8,2); //DD
+                    $newDatetime = $dd.'/'.$mm.'/'.$yyyy.' 00:00:00';
+                    $arrPowerFactor.="['".$newDatetime."', 0.000 ],\r\n";
                 }else{
-                    echo "ไม่มี".$arrDateDay[$key]."<br />";
-                    //$arrPowerFactor.="['".$value."', '0.000' ],\r\n";
+                    //echo "มี".$arrDateRow[$no_index]['value']."<br />";
+                    $arrPowerFactor.="['".$arrDateRow[$no_index]['datetime']."', ".$arrDateRow[$no_index]['value']." ],\r\n";
                 }
-                echo "<hr>";
-
+                //echo "<hr>";
             }
-            //print_r($arrRowDay);            echo "<hr />";
+            //print_r($arrRowDay);  echo "<hr />";
             //$result = array_diff($arrDateDay, $arrRowDay);
             //print_r($result);            echo "<hr />";
             //echo $arrPowerFactor;
@@ -125,7 +129,7 @@ if (!empty($action)) { ##ถ้า $action มีการส่งค่าม�
           //title: 'ค่า Power Factor จุด 5FLC04Lighting',
           hAxis: {title: 'วัน/เวลา ของข้อมูล',  titleTextStyle: {color: '#333'}},
           vAxis: {minValue: 0},
-          strokeWidth: 1,
+          strokeWidth: 2,
           axisTitlesPosition:'out',
           fontName:'Arial',
           fontSize:'11',
@@ -135,13 +139,14 @@ if (!empty($action)) { ##ถ้า $action มีการส่งค่าม�
           responsive: true,
           tooltip:{trigger: 'focus' }, //focus  selection
           width:'100%',
-          height:500,
+          height:400,
           /*tooltip: {isHtml: true},*/
           /*backgroundColor:'#000',*/
           animation: {
         "startup": true,
-        duration: 500,
+        duration: 400,
         easing: 'linear',
+        
       },
         };
 
@@ -150,7 +155,7 @@ if (!empty($action)) { ##ถ้า $action มีการส่งค่าม�
         chart.draw(data, options);
       }
     </script>
-      <h1 class="title">ค่า Power Factor จุด: <?PHP echo $output['site_location']; ?> ช่วงวันที่: <?PHP echo $exp_reservation[0];?> ถึง <?PHP echo $exp_reservation[1];?></h1>
+      <h3 class="title">ค่า Power Factor จุด: <?PHP echo $output['site_location']; ?> ช่วงวันที่: <?PHP echo $exp_reservation[0];?> ถึง <?PHP echo $exp_reservation[1];?></h3>
 <?PHP
         exit();
     }
