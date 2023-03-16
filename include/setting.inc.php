@@ -30,12 +30,12 @@ $pathUserDefault = "uploads-user/default.png";
 $branchArr = array( 
     array(0,'',''),
     array(1,'PCS','Pacific Cold Chain'),
-    array(2,'JPAC','xxxxxxxxxxxxxxx'),
-    array(3,'JPK','xxxxxxxxxxxxxxx'),
-    array(4,'PACM','xxxxxxxxxxxxxxx'),
-    array(5,'PACS','xxxxxxxxxxxxxxx'),
-    array(6,'PACT','xxxxxxxxxxxxxxx'),
-    array(7,'PACA','xxxxxxxxxxxxxxx'),
+    array(2,'JPAC','ยังไม่ระบุชื่อจุดxxxxxxx'),
+    array(3,'JPK','ยังไม่ระบุชื่อจุดxxxxxxx'),
+    array(4,'PACM','ยังไม่ระบุชื่อจุดxxxxxxx'),
+    array(5,'PACS','ยังไม่ระบุชื่อจุดxxxxxxx'),
+    array(6,'PACT','ยังไม่ระบุชื่อจุดxxxxxxx'),
+    array(7,'PACA','ยังไม่ระบุชื่อจุดxxxxxxx'),
 );
 
 $deptArr = array( 
@@ -43,17 +43,17 @@ $deptArr = array(
     array(1,'MA','Management'),
     array(2,'PLP','Pacific Logistics Pro'),
     array(3,'WH','Warehouse'),
-    array(4,'QA','xxxxxxxxxxxxxxx'),
-    array(5,'Safety','xxxxxxxxxxxxxxx'),
+    array(4,'QA','ยังไม่ระบุชื่อจุดxxxxxxx'),
+    array(5,'Safety','ยังไม่ระบุชื่อจุดxxxxxxx'),
     array(6,'CS','Customer Service'),
     array(7,'AC','Account'),
-    array(8,'EN','xxxxxxxxxxxxxxx'),
-    array(9,'HR','xxxxxxxxxxxxxxx'),
-    array(10,'IT/MIS','xxxxxxxxxxxxxxx'),
+    array(8,'EN','ยังไม่ระบุชื่อจุดxxxxxxx'),
+    array(9,'HR','ยังไม่ระบุชื่อจุดxxxxxxx'),
+    array(10,'IT/MIS','ยังไม่ระบุชื่อจุดxxxxxxx'),
     array(11,'INV','Inventory'),
-    array(12,'MT','xxxxxxxxxxxxxxx'),    
-    array(13,'MK','xxxxxxxxxxxxxxx'),
-    array(14,'PC','xxxxxxxxxxxxxxx')
+    array(12,'MT','ยังไม่ระบุชื่อจุดxxxxxxx'),    
+    array(13,'MK','ยังไม่ระบุชื่อจุดxxxxxxx'),
+    array(14,'PC','ยังไม่ระบุชื่อจุดxxxxxxx')
 );
 
 /*
@@ -94,6 +94,126 @@ $module_name = array(
 );
 
 $location_arr = array(
+    0 => array(
+        "_groupName" => "1FLC01AIR",
+        "detailName" => "อาคาร 8 ชั้น 1 แอร์ (1FLC01AIR)",
+    ),
+    1 => array(
+        "_groupName" => "1FLC01HEATER",
+        "detailName" => "อาคาร 8 ชั้น 1 ฮีตเตอร์ (1FLC01HEATER)",
+    ),
+    2 => array(
+        "_groupName" => "1FLC01Lighting",
+        "detailName" => "อาคาร 8 ชั้น 1 หลอดไฟ (1FLC01Lighting)",
+    ),
+    3=> array(
+    '_groupName' =>'1FLC05Conveyor678',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (1FLC05Conveyor678)',
+    ),
+    4=> array(
+    '_groupName' =>'1FLC05Conveyor910',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (1FLC05Conveyor910)',
+    ),
+    5=> array(
+    '_groupName' =>'1FLC05Lighting',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (1FLC05Lighting)',
+    ),
+    6=> array(
+    '_groupName' =>'1FLC05Plug',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (1FLC05Plug)',
+    ),
+    7=> array(
+    '_groupName' =>'1FLC06Lighting1',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (1FLC06Lighting1)',
+    ),
+    8=> array(
+    '_groupName' =>'1FLC06Lighting2',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (1FLC06Lighting2)',
+    ),
+    9=> array(
+    '_groupName' =>'1FLC07Pump1',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (1FLC07Pump1)',
+    ),
+    10=> array(
+    '_groupName' =>'1FLC07Pump2',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (1FLC07Pump2)',
+    ),
+    11=> array(
+    '_groupName' =>'2FLC02AIR',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (2FLC02AIR)',
+    ),
+    12=> array(
+    '_groupName' =>'2FLC02Lighting',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (2FLC02Lighting)',
+    ),
+    13=> array(
+    '_groupName' =>'2FLC02Plug',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (2FLC02Plug)',
+    ),
+    14=> array(
+    '_groupName' =>'3FLC03Heater',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (3FLC03Heater)',
+    ),
+    15=> array(
+    '_groupName' =>'3FLC03Lighting',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (3FLC03Lighting)',
+    ),
+    16=> array(
+    '_groupName' =>'4FMDBAIRVRV',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (4FMDBAIRVRV)',
+    ),
+    17=> array(
+    '_groupName' =>'4FMDBASRS2',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (4FMDBASRS2)',
+    ),
+    18=> array(
+    '_groupName' =>'4FMDBASRS31',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (4FMDBASRS31)',
+    ),
+    19=> array(
+    '_groupName' =>'4FMDBMaintenance',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (4FMDBMaintenance)',
+    ),
+    20=> array(
+    '_groupName' =>'5FLC04Air',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (5FLC04Air)',
+    ),
+    21=> array(
+    '_groupName' =>'5FLC04Heater',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (5FLC04Heater)',
+    ),
+    22=> array(
+    '_groupName' =>'5FLC04Lighting',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (5FLC04Lighting)',
+    ),
+    23=> array(
+    '_groupName' =>'5FLC04Plug',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (5FLC04Plug)',
+    ),
+    24=> array(
+    '_groupName' =>'Building9Plug',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (Building9Plug)',
+    ),
+    25=> array(
+    '_groupName' =>'Parking1LC13Plug',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (Parking1LC13Plug)',
+    ),
+    26=> array(
+    '_groupName' =>'Parking7LC12Lighting',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (Parking7LC12Lighting)',
+    ),
+    27=> array(
+    '_groupName' =>'ServerRoomLC08AIR',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (ServerRoomLC08AIR)',
+    ),
+    28=> array(
+    '_groupName' =>'ServerRoomLC08Plug',
+    'detailName' => 'ยังไม่ระบุชื่อจุด (ServerRoomLC08Plug)',
+    ),        
+
+);
+
+$location_arr_no = array(
 0=> '1FLC01AIR',
 1=> '1FLC01HEATER',
 2=> '1FLC01Lighting',
@@ -126,5 +246,5 @@ $location_arr = array(
 );	
 
 $arr_day_of_week = array('','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์','อาทิตย์');	
-$arr_mouth = array('มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม');	
-$arr_mouthEN = array('January','February','March','April','May','June','July','August','September','October','November','December');	
+$arr_mouthTH = array('', 'มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม');	
+$arr_mouthEN = array('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');

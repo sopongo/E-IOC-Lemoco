@@ -2,7 +2,7 @@ SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 SELECT MAX(_terminalTime), _groupName, PowerFactor, Watt_Sum, Today_KWH, 
 Yesterday_KWH, ThisMonth_KWH, LastMonth_KWH, KWH_Sum FROM mqtteioc.data_eioc 
 WHERE 
-DATE_FORMAT(_terminalTime, "%Y-%m-%d")='2023-03-06' 
+DATE_FORMAT(_terminalTime, "%Y-%m-%d")='2023-03-09' 
 GROUP BY mqtteioc.data_eioc._groupName ORDER BY mqtteioc.data_eioc._groupName ASC;
 
 /*

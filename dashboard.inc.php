@@ -1,3 +1,12 @@
+    <style type="text/css">
+.font11{ font-size:0.90rem}
+    </style>
+
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+
+
+
     <!-- Main content -->
     <section class="content">
 
@@ -17,9 +26,170 @@
 
 
         <div class="card-body">
+        <!--FORM 1-->
+        <form id="needs-validation" class="addform " name="addform" method="POST" enctype="multipart/form-data" autocomplete="off" novalidate="">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+            <label for="exampleSelectRounded0">เลือกจุดที่ต้องการดูข้อมูล:</label>
+            <select class="custom-select rounded-3" id="site_location" name="site_location">
+            <?PHP
+              foreach($location_arr as $key => $value) {
+                //echo $key . " : " . $value['_groupName'].'='.$value['detailName'] . "<br>";
+                echo '<option value="'.$value['_groupName'].'">- '.$value['detailName'].'</option>';
+              }
+            ?>
+            </select>
+            </div>
+          </div><!--col-md-6-->
+
+          <div class="col-sm-3">
+            <label for="exampleSelectRounded0">รูปแบบการแสดงผล:</label>
+                    <!-- radio -->
+                    <div class="form-group clearfix">
+                      <div class="icheck-success d-inline">
+                        <input type="radio" name="r3" id="radioSuccess1">
+                        <label for="radioSuccess1" class="text-danger">รายเดือน</label>
+                      </div>
+                      <div class="icheck-success d-inline ml-3">
+                        <input type="radio" name="r3" id="radioSuccess2" checked="" >
+                        <label for="radioSuccess2">ช่วงวันที่</label>
+                      </div>
+                    </div>
+                  </div>
+          </div><!--row-->
+
+
+          <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+            <label for="exampleSelectRounded0">เดือนที่แสดงผล:</label>
+            <select class="custom-select rounded-3" id="site_location" name="site_location" disabled>
+            <?PHP
+              foreach($arr_mouthTH as $key => $value) {
+                //echo $key . " : " . $value['_groupName'].'='.$value['detailName'] . "<br>";
+                if($key!=0){
+                  echo '<option value="'.$key.'">'.$value.'</option>';
+                }
+              }
+            ?>
+            </select>
+            </div>
+          </div><!--col-md-6-->
+          <div class="col-md-3">          
+          <div class="form-group">
+            <label>ช่วงวันที่:</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="far fa-calendar-alt"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control float-right" id="reservation" name="reservation">
+            </div>
+            <!-- /.input group -->
+          </div>          
+          </div><!--col-md-6-->          
+          </div><!--row-->
+          </form>
+
+          <div class="row">
+
+          </div><!--row-->
+
+            <?PHP
+      //print_r($location_arr);      echo "<hr />";
+      /*echo $location_arr[1]['_groupName'];
+      echo "<hr />";
+      echo $location_arr[1]['detailName'];
+      echo "<hr />xxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>";*/
+      //$keys = array_keys($location_arr);
+      /*
+      foreach($location_arr as $key => $value) {
+        echo $key . " : " . $value['_groupName'].'='.$value['detailName'] . "<br>";
+      } 
+      */     
+    //echo "<hr />";
+
+/*$keys = array_keys($location_arr);
+for($i = 0; $i < count($location_arr); $i++) {
+    echo $keys[$i] . "{<br>";
+    foreach($location_arr[$keys[$i]] as $key => $value) {
+        echo $key . " : " . $value . "<br>";
+    }
+    echo "}<br>";
+  }*/
+            ?>
+
 
         <?PHP 
 
+        /*
+$rowLocation= $obj->fetchRows("SELECT _groupName FROM mqtteioc.data_eioc GROUP BY _groupName ORDER BY _groupName ASC;");
+echo count($rowLocation);
+if (count($rowLocation)>0) {
+  foreach($rowLocation as $key => $value) {
+    echo $rowLocation[$key]['_groupName']."<br />";
+  }
+}        */
+
+$sqlGrouprow = $obj->fetchRows("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY','')); ");
+
+/*
+$rowData= $obj->fetchRows('SELECT MAX(mqtteioc.data_eioc._terminalTime) AS terminalTimes, mqtteioc.data_eioc._groupName, mqtteioc.data_eioc.PowerFactor, mqtteioc.data_eioc.Watt_Sum, mqtteioc.data_eioc.Today_KWH, mqtteioc.data_eioc.Yesterday_KWH, mqtteioc.data_eioc.ThisMonth_KWH, mqtteioc.data_eioc.LastMonth_KWH, mqtteioc.data_eioc.KWH_Sum 
+FROM mqtteioc.data_eioc WHERE mqtteioc.data_eioc._groupName="3FLC03Lighting" AND (DATE_FORMAT(_terminalTime, "%Y-%m-%d")>="2023-03-01" AND DATE_FORMAT(_terminalTime, "%Y-%m-%d")<="2023-03-15" ) 
+GROUP BY date(mqtteioc.data_eioc._terminalTime)
+ORDER BY mqtteioc.data_eioc._terminalTime DESC;');
+//echo count($rowData);
+echo "________________________________________________________________________________________________<br />";
+if (count($rowData)>0) {
+  foreach($rowData as $key => $value) {
+    echo $rowData[$key]['terminalTimes']."-----------".$rowData[$key]['PowerFactor'].'------------------'.$rowData[$key]['Today_KWH'];
+    echo "<br />________________________________________________________________________________________________<br />";
+  }
+}        
+
+echo "<hr>";
+
+$rowData= $obj->fetchRows('SELECT MAX(_terminalTime) AS terminalTimes, _groupName, PowerFactor, Watt_Sum, Today_KWH, 
+Yesterday_KWH, ThisMonth_KWH, LastMonth_KWH, KWH_Sum FROM mqtteioc.data_eioc WHERE  DATE_FORMAT(_terminalTime, "%Y-%m-%d")="2023-03-14"
+GROUP BY mqtteioc.data_eioc._groupName ORDER BY mqtteioc.data_eioc._groupName ASC;');
+//echo count($rowData);
+echo "________________________________________________________________________________________________<br />";
+if (count($rowData)>0) {
+  foreach($rowData as $key => $value) {
+    echo $rowData[$key]['terminalTimes']."-----------".$rowData[$key]['_groupName']."-----------".$rowData[$key]['PowerFactor'].'------------------'.$rowData[$key]['Today_KWH'];
+    echo "<br />________________________________________________________________________________________________<br />";
+  }
+}        
+
+echo "<hr>";
+*/
+
+/*
+$rowData= $obj->fetchRows('SELECT MAX(_terminalTime) AS terminalTimes, _groupName, PowerFactor, Watt_Sum, Today_KWH, Yesterday_KWH, ThisMonth_KWH, LastMonth_KWH, KWH_Sum FROM mqtteioc.data_eioc 
+WHERE _groupName="3FLC03Heater" AND (DATE_FORMAT(_terminalTime, "%Y-%m-%d")>="2023-02-01" AND DATE_FORMAT(_terminalTime, "%Y-%m-%d")<="2023-02-31") 
+GROUP BY LEFT(mqtteioc.data_eioc._terminalTime,10) ORDER BY mqtteioc.data_eioc._terminalTime ASC;');
+//echo count($rowData);
+$arrPowerFactor = "";
+if (count($rowData)>0) {
+  foreach($rowData as $key => $value) {
+    //echo $rowData[$key]['terminalTimes']."-----------".$rowData[$key]['PowerFactor']."-----------".$rowData[$key]['Watt_Sum'].'------------------'.$rowData[$key]['Today_KWH'];
+    //echo "['".$rowData[$key]['terminalTimes']."',	".$rowData[$key]['PowerFactor']."],";
+    
+    $yyyy = substr($rowData[$key]['terminalTimes'],0,4); //YYYY
+    $mm = substr($rowData[$key]['terminalTimes'],5,2); //MM
+    $dd = substr($rowData[$key]['terminalTimes'],8,2); //DD
+    $hhmmss = substr($rowData[$key]['terminalTimes'],10,9); //HH:mm:ss
+
+    $newDatetime = $dd.'/'.$mm.'/'.$yyyy.' '.$hhmmss;
+    //echo "<br>";
+    $arrPowerFactor.="['".$newDatetime."',	".($rowData[$key]['PowerFactor']!='' ? $rowData[$key]['PowerFactor'] : '0.000')."],\r\n";
+  }
+} 
+*/       
+//['01/02/2023 00:00:00',	0.410],
+//echo $arrPowerFactor;
 /*
 		172.16.61.38
 mqtt.jwdcoldchain.com				  mqtteioc
@@ -28,92 +198,87 @@ Ubuntu 2004 with mosquito / pass for mosq (admin:admin1234. , eioc:abcd@cc)			My
   */            
 
 
+/*##หาว่ามีค่าไหนใน อาร์เรย์ที่ไม่ตรงกัน##
+  $array1 = array("a" => "green", "red", "blue", "red");
+$array2 = array("b" => "green", "yellow", "red");
+$result = array_diff($array1, $array2);
+print_r($result);
+*/
+
         ?>
+<?PHP //echo $arrPowerFactor;?>
 
-        <h1 class="w-100 text-center d-block"><br/><br/>Under Construction<br/><br/></h1>
+<a href="#" class="btn btn-danger btn-block btn-showchart w-auto d-inline-block"><b>เทสดึงกราฟด้วย AJAX</b></a>
+<br /><br />
+<div id="viewdata"></div>
+<div class="row">
+<div class="col-sm-12 col-md-12 col-xs-12 bg-warning p-1">
+<div id="chart_div" style="width:auto; height:auto; overflow:auto;"></div>
+</div>
+<div class="card-title"><span class="font11 text-danger">**กรณีค่าเป็น 0.000 อาจเกิดจากสัญญาณอินเตอร์เน็ตมีปัญหา หรือ ไฟฟ้าดับทำให้ไม่สามารถบันทึกข้อมูลได้</span></div>
+</div>
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+<!-- InputMask -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- date-range-picker -->
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          /*['Year', 'Sales', 'Expenses'],
-          ['2013',  1000,      400],
-          ['2014',  1170,      460],
-          ['2015',  660,       1120],
-          ['2016',  1030,      540]*/
-          ['Date', 'Power Factory'],
-          ['01/02/2023 00:00:00',	0.410],
-          ['02/02/2023 00:00:00',	0],
-          ['03/02/2023 00:00:00',	0.415	],
-          ['04/02/2023 00:00:00', 0.420	],
-          ['05/02/2023 00:00:00', 0.421	],
-          ['06/02/2023 00:00:00', 0.417	],
-          ['07/02/2023 00:00:00', 0.418	],
-          ['08/02/2023 00:00:00', 0.448	],
-          ['09/02/2023 00:00:00', 0.422	],
-          ['10/02/2023 00:00:00', 0.420	],
-          ['11/02/2023 00:00:00', 0.422	],
-          ['12/02/2023 00:00:00', 0.419	],
-          ['13/02/2023 00:00:00', 0.418	],
-          ['14/02/2023 00:00:00', 0.417	],
-          ['15/02/2023 00:00:00', 0.416	],
-          ['16/02/2023 00:00:00', 0.419	],
-          ['17/02/2023 00:00:00', 0.418	],
-          ['18/02/2023 00:00:00', 0.418	],
-          ['19/02/2023 00:00:00', 0.412	],
-          ['20/02/2023 00:00:00', 0.420	],
-          ['21/02/2023 00:00:00', 0.417	],
-          ['22/02/2023 00:00:00', 0.414	],
-          ['23/02/2023 00:00:00', 0.421	],
-          ['24/02/2023 00:00:00', 0.416	],
-          ['25/02/2023 00:00:00', 0.422	],
-          ['26/02/2023 00:00:00', 0.410	],
-          ['27/02/2023 00:00:00', 0.411	],
-          ['28/02/2023 00:00:00', 0.419	]
-        ]);    
+<script type="text/javascript">
 
-        var options = {
-          annotations:{annotationText:'xxxxxxxxxxxxxxxxxxxx'},
-          legend: 'none',
-          //title: 'ค่า Power Factory จุด 5FLC04Lighting',
-          hAxis: {title: 'วัน/เดือน',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0},
-          strokeWidth: 1,
-          axisTitlesPosition:'out',
-          fontName:'Arial',
-          fontSize:'11',
-          annotations: {alwaysOutside: true},
-          curveType: 'function',
-          pointSize: 7,
-          responsive: true,
-          tooltip:{trigger: 'focus' }, //focus  selection
-          width:1200,
-          height:500,
-          /*tooltip: {isHtml: true},*/
-          /*backgroundColor:'#000',*/
-          animation: {
-        "startup": true,
-        duration: 500,
-        easing: 'linear'
-      },
-        };
-
-        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+$(document).on("click", ".btn-showchart", function (event){ 
+  var frmData = $("form#needs-validation").serialize();
+  $.ajax({
+      url: "ajax_data.inc.php",
+      type: "POST",
+      data:{ "data":frmData, "action":"chart_type_1" },
+      beforeSend: function () {
+      },success: function (data) {
+          console.log(data); //return false;
+          $("#viewdata").html(data);
+          event.stopPropagation();
+      },error: function (data) {
+          console.log(data);
+          sweetAlert("ผิดพลาด!", "ไม่สามารถแสดงผลข้อมูลได้", "error");
       }
+    });
+});
+
+//Date picker
+    $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
+
+    //Date and time picker
+    $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
+
+    //Date range picker
+    $('#reservation').daterangepicker({
+      locale: {
+        format: 'DD/MM/YYYY',
+        language: "th",
+      }
+    });
+
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'MM/DD/YYYY hh:mm A'
+      }
+    })
     </script>
 
 
-<h6>จำนวนวันในเดือน ก.พ. 2023 มี: <?PHP echo cal_days_in_month(CAL_GREGORIAN, 2, 2023); ?> วัน</h6>
-<div class="row">
-<div class="col-sm-12 col-md-12 col-xs-12 bg-warning p-1">
-  <div class="title">ค่า Power Factory จุด 5FLC04Lighting</div>
-<div id="chart_div" style="width:auto; height:auto; overflow:auto;"></div>
-</div>
-</div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+<!-- <h6>จำนวนวันในเดือน ก.พ. 2023 มี: <?PHP echo cal_days_in_month(CAL_GREGORIAN, 2, 2023); ?> วัน</h6>-->
+
 
         </div><!-- /.card-body -->
       </div><!-- /.card -->
