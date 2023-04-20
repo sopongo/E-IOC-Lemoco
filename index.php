@@ -9,15 +9,16 @@ require_once ('include/class_crud.inc.php');
 require_once ('include/function.inc.php');
 require_once ('include/setting.inc.php');
 require_once ('include/timer.inc.php');
-require_once ('include/query_class.inc.php');
+//require_once ('include/query_class.inc.php');
 
 error_reporting(error_reporting() & ~E_NOTICE);
 
 //if($_SESSION['sess_id_user']!=NULL && $_SESSION['sess_status_user']!=NULL){ 
-if($_SESSION['sess_id_user']==NULL && $_SESSION['sess_status_user']==NULL){ 
+/*if($_SESSION['sess_id_user']==NULL && $_SESSION['sess_status_user']==NULL){ 
   $_SESSION = []; //empty array. 
   session_destroy(); die(include('login.inc.php')); 
 }
+*/
 
 $obj = new CRUD(); ##สร้างออปเจค $obj เพื่อเรียกใช้งานคลาส,ฟังก์ชั่นต่างๆ
 
@@ -30,7 +31,6 @@ isset($_REQUEST['module']) ? $module = $_REQUEST['module'] : $module = '';
 isset($_REQUEST['id']) ? $id = intval($_REQUEST['id']) : $id = '';
 
 switch($module){  
-  
   case 'dashboard':
   default :
     $include_module = "dashboard.inc.php";
@@ -209,6 +209,7 @@ switch($module){
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item"><a href="./" class="nav-link <?PHP echo $active_dashbord;?>"><i class="nav-icon fa fa-solid fa-chalkboard"></i> <p>แดชบอร์ด</p></a></li>
+        <li class="nav-item"><a href="?module=pf-chart" class="nav-link <?PHP echo $active_createrequest;?>"><i class="nav-icon fas fa-satellite-dish"></i> <p>เช็คสถานะออนไลน์</p></a></li>
         <li class="nav-item"><a href="?module=pf-chart" class="nav-link <?PHP echo $active_createrequest;?>"><i class="nav-icon fas fa-chart-line"></i> <p>Power Factor Chart</p></a></li>
         <li class="nav-item"><a href="?module=pf-chart" class="nav-link <?PHP echo $active_createrequest;?>"><i class="nav-icon fas fa-chart-line"></i> <p>รายงานต่างๆ</p></a></li>
         <li class="nav-item <?PHP echo $active_treeview_1; ?>"><!--ถ้าจะให้เปิดใส่คลาส menu-open-->

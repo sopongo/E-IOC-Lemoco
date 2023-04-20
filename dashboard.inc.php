@@ -1,6 +1,10 @@
-    <style type="text/css">
+<style type="text/css">
 .font11{ font-size:0.90rem}
-    </style>
+
+.bg-offline{ background-color:#FFE5E5; }
+
+img.img_status{ width:30px; height:auto;}
+</style>
 
   <!-- daterange picker -->
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
@@ -213,6 +217,7 @@ print_r($result);
 <div id="viewdata"></div>
 <div class="row">
 <div class="col-sm-12 col-md-12 col-xs-12 bg-warning p-1">
+<div class="loading d-none overlay w-25 m-auto"><i class="fas fa fa-sync-alt fa-spin"></i><div class="align-text-top ml-2 text-bold pt-2">Loading...</div></div>  
 <div id="chart_div" style="width:auto; height:auto; overflow:auto;"></div>
 </div>
 <div class="card-title"><span class="font11 text-danger">**กรณีค่าเป็น 0.000 อาจเกิดจากสัญญาณอินเตอร์เน็ตมีปัญหา หรือ ไฟฟ้าดับทำให้ไม่สามารถบันทึกข้อมูลได้</span></div>
@@ -237,7 +242,10 @@ $(document).on("click", ".btn-showchart", function (event){
       type: "POST",
       data:{ "data":frmData, "action":"chart_type_1" },
       beforeSend: function () {
+        $(".loading").removeClass('d-none').fadeIn(1000).delay(3000);
+        $("#viewdata").html('');
       },success: function (data) {
+          $(".loading").fadeOut(1000).hide();
           console.log(data); //return false;
           $("#viewdata").html(data);
           event.stopPropagation();
@@ -278,10 +286,66 @@ $(document).on("click", ".btn-showchart", function (event){
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
 <!-- <h6>จำนวนวันในเดือน ก.พ. 2023 มี: <?PHP echo cal_days_in_month(CAL_GREGORIAN, 2, 2023); ?> วัน</h6>-->
-
-
         </div><!-- /.card-body -->
+      </div><!-- /.card -->
+
+      <div class="card">
+      <div class="card-body">
+      <div class="card-title w-100"><p class="text-pamary">เช็คสถานะออนไลน์</p></div>
+      <table class="table w-75 d-block">
+        <thead>
+          <tr>
+            <th>ลำดับที่</th>
+            <th>ชื่อตู้เบรคเกอร์</th>
+            <th>จุดตรวจวัด</th>
+            <th>ตำแหน่งติดตั้ง</th>
+            <th>การเชื่อมต่อ</th>
+            <th>สถานะ</th>
+            <th>ออนไลน์ล่าสุด</th>            
+          </tr>
+        </thead>
+        <tbody>
+      <?PHP
+              //"2023-04-20" 
+              $sqlGrouprow = $obj->fetchRows("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY','')); ");
+              $rowData= $obj->fetchRows('SELECT MAX(_terminalTime), _groupName, PowerFactor, Today_KWH FROM mqtteioc.data_eioc 
+              WHERE DATE_FORMAT(_terminalTime, "%Y-%m-%d")="'.(date('Y-m-d')).'" GROUP BY mqtteioc.data_eioc._groupName ORDER BY mqtteioc.data_eioc._groupName ASC;');      
+
+              /*echo '<pre>';
+              print_r($rowData);
+              echo '</pre>';*/
+
+              $no = 1;
+              //echo array_search($rowData[$key]['id_user'], '3FLC03Lighting');
+              //array_search('5FLC04Heater', array_column($rowData, '_groupName'));
+              //<td>'.(is_numeric($status_onoff) ? $status_onoff.'---ออนไลน์' : '' ).'</td>
+              foreach($location_arr as $key => $value) {
+                $status_onoff = array_search($value['_groupName'], array_column($rowData, '_groupName'));
+
+                if(!is_numeric($status_onoff)){
+                  $lastTime= $obj->customSelect("SELECT _groupName, MAX(_terminalTime) AS lastime FROM mqtteioc.data_eioc WHERE _groupName = '".$value['_groupName']."';");
+                  //$lastTime['lastime'] = '';
+                }
+                echo '<tr '.(is_numeric($status_onoff) ? '' : 'class="bg-offline"').'>
+                <td>'.$no.'.</td>
+                <td>'.$value['breakerName'].'</td>
+                <td>'.$value['detailName'].'</td>
+                <td>'.$value['location'].'</td>
+                <td>'.$value['connectType'].'</td>
+                <td>'.(is_numeric($status_onoff) ? '<img src="dist/img/online-xxl.png" class="img_status" />' : '<img src="dist/img/offline-xxl.png" class="img_status" />' ).'</td>
+                <td>'.(is_numeric($status_onoff) ? $rowData[$status_onoff]['MAX(_terminalTime)'] : $lastTime['lastime'] ).'</td>
+                </tr>';
+                //unset($status_onoff);
+                $no++;
+                //echo $key . " : " . $value['_groupName'].'='.$value['detailName'] . "<br>";
+                //echo '<option value="'.$value['_groupName'].'">- '.$value['detailName'].'</option>';
+              }
+      ?>
+        </tbody>
+      </table>
+      </div><!-- /.card-body -->
       </div><!-- /.card -->
 
     </section>
     <!-- /.content -->
+    
