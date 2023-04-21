@@ -289,6 +289,18 @@ $(document).on("click", ".btn-showchart", function (event){
         </div><!-- /.card-body -->
       </div><!-- /.card -->
 
+      <?PHP 
+        /*
+          foreach($location_arr as $key => $value) {
+            $lastTime= $obj->customSelect("SELECT _terminalTime, _groupName FROM mqtteioc.data_eioc 
+            WHERE _groupName='".$value['_groupName']."' ORDER BY mqtteioc.data_eioc.id DESC LIMIT 1;");
+            echo $value['_groupName'].' ----------> '.$lastTime['_terminalTime'];
+            echo "<hr />";
+          }
+          exit();
+          */
+      ?>
+
       <div class="card">
       <div class="card-body">
       <div class="card-title w-100"><p class="text-pamary">เช็คสถานะออนไลน์</p></div>
@@ -323,7 +335,8 @@ $(document).on("click", ".btn-showchart", function (event){
                 $status_onoff = array_search($value['_groupName'], array_column($rowData, '_groupName'));
 
                 if(!is_numeric($status_onoff)){
-                  $lastTime= $obj->customSelect("SELECT _groupName, MAX(_terminalTime) AS lastime FROM mqtteioc.data_eioc WHERE _groupName = '".$value['_groupName']."';");
+                  $lastTime= $obj->customSelect("SELECT _terminalTime, _groupName FROM mqtteioc.data_eioc 
+                  WHERE _groupName='".$value['_groupName']."' ORDER BY mqtteioc.data_eioc.id DESC LIMIT 1;");
                   //$lastTime['lastime'] = '';
                 }
                 echo '<tr '.(is_numeric($status_onoff) ? '' : 'class="bg-offline"').'>
@@ -333,7 +346,7 @@ $(document).on("click", ".btn-showchart", function (event){
                 <td>'.$value['location'].'</td>
                 <td>'.$value['connectType'].'</td>
                 <td>'.(is_numeric($status_onoff) ? '<img src="dist/img/online-xxl.png" class="img_status" />' : '<img src="dist/img/offline-xxl.png" class="img_status" />' ).'</td>
-                <td>'.(is_numeric($status_onoff) ? $rowData[$status_onoff]['MAX(_terminalTime)'] : $lastTime['lastime'] ).'</td>
+                <td>'.(is_numeric($status_onoff) ? $rowData[$status_onoff]['MAX(_terminalTime)'] : $lastTime['_terminalTime'] ).'</td>
                 </tr>';
                 //unset($status_onoff);
                 $no++;
