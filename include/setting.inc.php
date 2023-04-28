@@ -160,14 +160,14 @@ $location_arr = array(
     9=> array(
     'breakerName' => "LP7 (OK)",
     '_groupName' =>'1FLC07Pump1',
-    'detailName' => 'วัดเบรกเกอร์ปั๊มน้ำ 1',
+    'detailName' => 'เบรกเกอร์ปั๊มน้ำ 1',
     "location" => "ห้องใต้บันไดอาคาร 8 ชั้น 1",
-    "connectType" => "LAN",    
+    "connectType" => "LAN",
     ),
     10=> array(
     'breakerName' => "LP7 (OK)",
     '_groupName' =>'1FLC07Pump2',
-    'detailName' => 'วัดเบรกเกอร์ปั๊มน้ำ 1',
+    'detailName' => 'เบรกเกอร์ปั๊มน้ำ 1',
     "location" => "ห้องใต้บันไดอาคาร 8 ชั้น 1",
     "connectType" => "LAN",
     ),
