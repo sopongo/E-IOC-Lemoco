@@ -13,10 +13,16 @@ if (!empty($action)) { ##ถ้า $action มีการส่งค่าม�
     $obj = new CRUD(); ##สร้างออปเจค $obj เพื่อเรียกใช้งานคลาส,ฟังก์ชั่นต่างๆ
 }
 
-/*echo $action; exit();*/
+    /*echo $action; exit();*/
+
+    echo date('d M Y H:i:s');
+    exit();
+
+    if($action=='test_refresh'){
+        echo 'ตัวเลข Ramdom เปลี่ยนทุก 2.5 วินาที = -------------จุดที่เลือก: '.$_POST['val_1'].' / อัพเดทจข้อมูลเมื่อ: '.date('Y-m-d H:i:s');
+    }    
 
     $sqlGrouprow = $obj->fetchRows("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY','')); ");
-
     if($action=='chart_type_1' && !empty($_POST)){
 
         if(isset($_POST['data'])){

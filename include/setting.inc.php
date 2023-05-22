@@ -161,14 +161,14 @@ $location_arr = array(
     'breakerName' => "LP7 (OK)",
     '_groupName' =>'1FLC07Pump1',
     'detailName' => 'เบรกเกอร์ปั๊มน้ำ 1',
-    "location" => "ห้องใต้บันไดอาคาร 8 ชั้น 1",
+    "location" => "อาคาร 8 ชั้น 1 ห้องใต้บันได",
     "connectType" => "LAN",
     ),
     10=> array(
     'breakerName' => "LP7 (OK)",
     '_groupName' =>'1FLC07Pump2',
     'detailName' => 'เบรกเกอร์ปั๊มน้ำ 1',
-    "location" => "ห้องใต้บันไดอาคาร 8 ชั้น 1",
+    "location" => "อาคาร 8 ชั้น 1 ห้องใต้บันได",
     "connectType" => "LAN",
     ),
     11=> array(
@@ -262,13 +262,20 @@ $location_arr = array(
     "location" => "อาคาร 8 ชั้น 5 ห้อง MDB",
     "connectType" => "LAN",    
     ),
-    24=> array(
-    'breakerName' => "ไม่มีชื่อ (OK)",
-    '_groupName' =>'Building9Plug',
-    'detailName' => 'ตู้ชาร์จไฟรถโฟคลิฟต์',
-    "location" => "อาคาร 9 โรงจอดรถโฟคลิฟต์",
-    "connectType" => "NET SIM",    
-    ),
+    27=> array(
+        'breakerName' => "LP8 (OK)",        
+        '_groupName' =>'ServerRoomLC08AIR',
+        'detailName' => 'แอร์',
+        "location" => "อาคาร 8 ห้องเซิฟเวอร์",
+        "connectType" => "LAN",    
+        ),
+    28=> array(
+        'breakerName' => "LP8 (OK)",                
+        '_groupName' =>'ServerRoomLC08Plug',
+        'detailName' => 'ปลั๊ก',
+        "location" => "อาคาร 8 ห้องเซิฟเวอร์",
+        "connectType" => "LAN",
+    ),            
     25=> array(
     'breakerName' => "ไม่มีชื่อ (OK)",
     '_groupName' =>'Parking1LC13Plug',
@@ -283,21 +290,13 @@ $location_arr = array(
     "location" => "ลานจอดรถ กำแพงอาคาร 7",
     "connectType" => "NET SIM",    
     ),
-    27=> array(
-    'breakerName' => "LP8 (OK)",        
-    '_groupName' =>'ServerRoomLC08AIR',
-    'detailName' => 'แอร์',
-    "location" => "อาคาร 8 ห้องเซิฟเวอร์",
-    "connectType" => "LAN",    
-    ),
-    28=> array(
-    'breakerName' => "LP8 (OK)",                
-    '_groupName' =>'ServerRoomLC08Plug',
-    'detailName' => 'ปลั๊ก',
-    "location" => "อาคาร 8 ห้องเซิฟเวอร์",
-    "connectType" => "LAN",
-    ),        
-
+    24=> array(
+        'breakerName' => "ไม่มีชื่อ (OK)",
+        '_groupName' =>'Building9Plug',
+        'detailName' => 'ตู้ชาร์จไฟรถโฟคลิฟต์',
+        "location" => "อาคาร 9 โรงจอดรถโฟคลิฟต์",
+        "connectType" => "NET SIM",    
+        ),    
 );
 
 $location_arr_no = array(

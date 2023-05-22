@@ -27,11 +27,10 @@ img.img_status{ width:30px; height:auto;}
           </div>
         </div>
 
-
-
         <div class="card-body">
         <!--FORM 1-->
         <form id="needs-validation" class="addform " name="addform" method="POST" enctype="multipart/form-data" autocomplete="off" novalidate="">
+       
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
@@ -45,7 +44,77 @@ img.img_status{ width:30px; height:auto;}
             ?>
             </select>
             </div>
+            <div id="div_refresh" class="text-lg"></div>
+
+            <div class="form-group">
+            <label for="exampleSelectRounded0">เลือกจุดที่ต้องการดูข้อมูล แบบที่ 2 (แยกตามจุด):</label>
+            <select class="custom-select rounded-3" id="main_location" name="main_location">
+              <option value="" selected>เลือกจุดที่ต้องการดูข้อมูล</option>
+            <?PHP
+                $group_location = array();
+                foreach ($location_arr as $element) {
+                    $group_location[$element['location']][] = $element;
+                }
+              //echo "<pre>"; print_r($group_location); echo "</pre>";
+                $keys = array_keys($group_location);
+                for($i = 0; $i < count($group_location); $i++) {
+                    echo '<option value="'.$keys[$i].'">- '.$keys[$i].'</option>';
+                }
+            ?>
+            </select>
+            </div>          
+            <input type="button" name="input_refresh" id="input_refresh" class="btn-refresh btn btn-md btn-success" value="แสดงข้อมูล" />
           </div><!--col-md-6-->
+          <?PHP
+            $select_location = "อาคาร 8 ชั้น 5 ห้อง MDB";
+            
+            //echo "<pre>"; print_r($location_arr); echo "</pre>";
+
+            /*$key = array_search('อาคาร 8 ชั้น 5 ห้อง MDB', array_column($location_arr, 'location'));
+            $array_key = array_keys(array_search('อาคาร 8 ชั้น 5 ห้อง MDB', array_column($location_arr, 'location')));
+            echo "<hr />";
+            echo "<pre>"; print_r($key); echo "</pre>";
+            echo "<hr />";
+            echo "<pre>"; print_r($array_key); echo "</pre>";*/
+
+            function search($array, $key, $value)
+            {
+                $results = array();
+            
+                if (is_array($array))
+                {
+                    if (isset($array[$key]) && $array[$key] == $value)
+                        $results[] = $array;
+            
+                    foreach ($array as $subarray)
+                        $results = array_merge($results, search($subarray, $key, $value));
+                }
+            
+                return $results;
+            }
+
+            $search_groupName = search($location_arr, 'location', 'อาคาร 8 ชั้น 1 ทางขึ้นรถโฟคลิฟต์'); //อาคาร 8 ชั้น 1 ออฟฟิศ WH / อาคาร 9 โรงจอดรถโฟคลิฟต์
+            echo "<pre>"; print_r($search_groupName); echo "</pre>";
+
+            $text_query = '';
+            foreach($search_groupName as $key=> $value){
+              $text_query.= count($search_groupName)>1 && $key==0 ? '(' : '';
+
+              //echo $search_groupName[$key]['_groupName']."++++".count($search_groupName)."+++".$key."<br />";
+              $text_query.= count($search_groupName)>1 && $key==0 ? ' _groupName="'.$search_groupName[$key]['_groupName'].'"' : ' OR _groupName="'.$search_groupName[$key]['_groupName'].'"';
+
+              $text_query.= count($search_groupName)>1 && end(array_keys($search_groupName))==$key ? ')' : ''; //array_key_last($search_groupName)
+            }
+
+            count($search_groupName)==1 ?  $text_query = str_replace('OR', '', $text_query) : $text_query;
+
+            /*echo "<hr />";
+            echo $key.'-----'.end(array_keys($search_groupName));*/
+            echo "<hr />";
+
+            echo "SELECT id, _terminalTime ,  _groupName, Today_KWH, KWH_Sum, PowerFactor FROM mqtteioc.data_eioc WHERE ".$text_query." ORDER BY _terminalTime DESC , id DESC LIMIT ".count($search_groupName)."";
+            //exit();
+          ?>      
 
           <div class="col-sm-3">
             <label for="exampleSelectRounded0">รูปแบบการแสดงผล:</label>
@@ -235,6 +304,75 @@ print_r($result);
 
 <script type="text/javascript">
 
+
+$(document).ready(function(){
+
+
+    function realTime(val) {
+        var main_location = $("#main_location option:selected" ).val();
+        $.ajax({
+        type: 'POST',
+        url: "ajax_data.inc.php",
+        data:{action:"test_refresh", "val_1":"0000000"},
+        success: function (data) {
+          console.log(data);
+          $("#div_refresh").html(data);
+        },
+        error: function (data) {
+          swal("ผิดพลาด!", "ไม่พบข้อมูลที่ระบุ.", "error");
+        }
+        });
+    }
+
+
+/*
+  $.ajax({
+      type: 'POST',
+      url: "ajax_data.inc.php",
+      data:{action:"test_refresh", "val_1":"0000000"},
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (data) {
+        swal("ผิดพลาด!", "ไม่พบข้อมูลที่ระบุ.", "error");
+      }
+    });   
+*/
+
+
+$(document).on("click", ".btn-refresh", function (){ 
+  var main_location = $("#main_location option:selected" ).val();
+  if(main_location==''){
+    sweetAlert("ผิดพลาด!", "เลือกจุดที่ต้องการดูข้อมูล แบบที่ 2", "error");
+    return false;
+  }
+  //doAutoRefresh();
+  realTime();
+  //setInterval(realTime, 1000); //refesh data every 5 seconds.
+
+});
+
+/*
+    $.ajax({
+      url: "ajax_data.inc.php",
+      type: "POST",
+      data:{action:"test_refresh", "val_1":"000000"},
+      beforeSend: function () {
+      },success: function (data) {
+          console.log(data); //return false;
+          $('#div_refresh').html(data);
+          event.stopPropagation();
+      },error: function (data) {
+          console.log(data);
+          sweetAlert("ผิดพลาด!", "ไม่สามารถแสดงผลข้อมูลได้", "error");
+      },setInterval(2000);
+    });
+*/
+
+
+
+});
+
 $(document).on("click", ".btn-showchart", function (event){ 
   var frmData = $("form#needs-validation").serialize();
   $.ajax({
@@ -319,6 +457,7 @@ $(document).on("click", ".btn-showchart", function (event){
         </thead>
         <tbody>
       <?PHP
+              exit();
               //"2023-04-20" 
               $sqlGrouprow = $obj->fetchRows("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY','')); ");
               $rowData= $obj->fetchRows('SELECT MAX(_terminalTime), _groupName, PowerFactor, Today_KWH FROM mqtteioc.data_eioc 
